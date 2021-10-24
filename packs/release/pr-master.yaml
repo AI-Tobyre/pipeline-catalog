@@ -52,7 +52,7 @@ spec:
             #!/bin/sh
             source .jx/variables.sh
             /usr/bin/yq e  ".image.tag= \"$VERSION\""  -i   charts/api/values-staging.yaml
-            /usr/bin/yq e  ".image.tag= \"$VERSION\""  -i   charts/api/values-prod.yamlmkdir
+            /usr/bin/yq e  ".image.tag= \"$VERSION\""  -i   charts/api/values-prod.yaml
         - image: ghcr.io/jenkins-x/jx-changelog:0.0.47
           name: promote-changelog
           resources: {}
