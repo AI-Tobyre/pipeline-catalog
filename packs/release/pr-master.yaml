@@ -24,6 +24,7 @@ spec:
           resources: {}
           script: |
             #!/bin/sh
+            export SUBDIR="source"
             echo "git cloning url: $REPO_URL version $PULL_BASE_REF@$PULL_BASE_SHA to dir: $SUBDIR"
             git config --global --add user.name raghul@tobyre.com
             git config --global --add user.email toby-bot-user
