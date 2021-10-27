@@ -20,18 +20,18 @@ spec:
         steps:
         - image: gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.27.0
           name: git-clone
+          workingDir: /workspace
           resources: {}
           script: |
             #!/bin/sh
-            export SUBDIR="source"
             echo "git cloning url: $REPO_URL version $PULL_BASE_REF@$PULL_BASE_SHA to dir: $SUBDIR"
-            git config --global --add user.name ${GIT_AUTHOR_NAME:-jenkins-x-bot}
-            git config --global --add user.email ${GIT_AUTHOR_EMAIL:-jenkins-x@googlegroups.com}
+            git config --global --add user.name raghul@tobyre.com
+            git config --global --add user.email toby-bot-user
             git config --global credential.helper store
             git clone $REPO_URL $SUBDIR
             cd $SUBDIR
-            git reset --hard $PULL_BASE_SHA
-            echo "checked out revision: $PULL_BASE_REF@$PULL_BASE_SHA to dir: $SUBDIR"
+            git checkout staging
+            git status
 
         - image: ghcr.io/jenkins-x/jx-release-version:2.5.0
           name: next-version
@@ -59,17 +59,18 @@ spec:
           script: |
             #!/usr/bin/env sh
             source .jx/variables.sh
-            git checkout staging
             echo "$VERSION" > VERSION
             cat VERSION
             jx gitops yset -p version -v "$VERSION" -f ./charts/$REPO_NAME/Chart.yaml
             jx gitops yset -p appVersion -v "$VERSION" -f ./charts/$REPO_NAME/Chart.yaml
             jx gitops yset -p 'image.repository' -v $DOCKER_REGISTRY/$APP_NAME -f ./charts/$REPO_NAME/values.yaml
             jx gitops yset -p 'image.tag' -v "$VERSION" -f ./charts/$REPO_NAME/values.yaml;
+            git config --global --add user.name toby-bot-user
+            git config --global --add user.email raghul@tobyre.com
             git add * || true
             git commit -a -m "chore: release $VERSION" 
             git push --force origin staging
-            jx create pullrequest -t "my PR title" --base master
+            jx create pullrequest -t "Promote to Master" --base master
             exit 0
         - image: ghcr.io/jenkins-x/jx-boot:3.2.206
           name: jx-variable
