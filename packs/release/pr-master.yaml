@@ -62,7 +62,7 @@ spec:
             source .jx/variables.sh
             echo "$VERSION" > VERSION
             cat VERSION
-            jx gitops yset -p version -v "$VERSION" -f ./charts/$REPO_NAME/Chart.yaml
+            # jx gitops yset -p version -v "$VERSION" -f ./charts/$REPO_NAME/Chart.yaml
             jx gitops yset -p appVersion -v "$VERSION" -f ./charts/$REPO_NAME/Chart.yaml
             jx gitops yset -p 'image.repository' -v $DOCKER_REGISTRY/$APP_NAME -f ./charts/$REPO_NAME/values.yaml
             jx gitops yset -p 'image.tag' -v "$VERSION" -f ./charts/$REPO_NAME/values.yaml;
