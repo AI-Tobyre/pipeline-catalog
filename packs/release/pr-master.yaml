@@ -46,7 +46,7 @@ spec:
           resources: {}
           script: |
             #!/usr/bin/env sh
-            jx gitops variables 
+            jx gitops variables --commit=false
         - name: replace-in-yaml
           image: docker.io/mikefarah/yq:4@sha256:34f1d11ad51dc4639fc6d8dd5ade019fe57cf6084bb6a99a2f11ea522906033b #tag: 4, amd
           script: |
