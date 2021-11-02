@@ -70,7 +70,8 @@ spec:
             git config --global --add user.email raghul@tobyre.com
             git add .
             git commit -a -m "chore: release $VERSION" 
-             jx create pullrequest -t "Promote to Master" --base master
+            #git push --force origin staging
+            jx create pullrequest -t "Promote to Master" --base master
             exit 0
         - image: ghcr.io/jenkins-x/jx-boot:3.2.206
           name: jx-variable
