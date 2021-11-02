@@ -70,7 +70,7 @@ spec:
             git config --global --add user.email raghul@tobyre.com
             git add * || true
             git commit -a -m "chore: release $VERSION" 
-            git push --force origin staging
+            #git push --force origin staging
             jx create pullrequest -t "Promote to Master" --base master
             exit 0
         - image: ghcr.io/jenkins-x/jx-boot:3.2.206
