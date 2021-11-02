@@ -69,7 +69,7 @@ spec:
             git config --global --add user.name toby-bot-user
             git config --global --add user.email raghul@tobyre.com
             git add .
-            git commit -a -m "chore: release $VERSION" 
+            git commit -m "chore: release $VERSION" 
             #git push --force origin staging
             jx create pullrequest -t "Promote to Master" --base master
             exit 0
